@@ -1,11 +1,59 @@
 x = load('dataset1_inputs.txt');
 t = load('dataset1_outputs.txt');
-plot(x,t,'+');
+w = 30;
+errors = zeros(1,w) ;
 
-%polynomial curve fitting
-%for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
-p = polyfit(x,t,3);
+% figure;
+% hold on;
+% plot(x,t,'+');
+% ylim([-2 2]);
+for i=1:w    
+    %polynomial curve fitting
+    %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
+    p = polyfit(x,t,i);
+    %x2 = [-1:.1:1];
+    results = polyval(p,x);
+    errors(i) = sum((t - results).^2);
+%     plot(x2,result);
+end
+% title('Target data and degree 1-30 polynomial curve fit');
+% hold off;
 
-result = polyval(p,x);
-hold on;
-plot(x,reu
+% %degree 6 to 10 polynomials
+% figure;
+% hold on;
+% plot(x,t,'+');
+% for i=w:2*w    
+%     %polynomial curve fitting
+%     %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
+%     p = polyfit(x,t,i);
+%     x2 = [-1:.1:1];
+%     result = polyval(p,x2);
+%     plot(x2,result);
+% end
+% title('Target data and degree 6-10 polynomial curve fit');
+% legend('target','w=6','w=7','w=8','w=9','w=10');
+% hold off;
+% 
+% %degree 11 to 15 polynomials
+% figure;
+% hold on;
+% plot(x,t,'+');
+% for i=2*w:3*w    
+%     %polynomial curve fitting
+%     %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
+%     p = polyfit(x,t,i);
+%     x2 = [-1:.1:1];
+%     result = polyval(p,x2);
+%     plot(x2,result);
+% end
+% title('Target data and degree 11-15 polynomial curve fit');
+% legend('target','w=11','w=12','w=13','w=14','w=15');
+% hold off;
+
+
+
+
+
+
+
