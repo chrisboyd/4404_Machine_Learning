@@ -1,7 +1,7 @@
 x = load('dataset1_inputs.txt');
 t = load('dataset1_outputs.txt');
 
-p = designmatrix(x,t,20)';
+p = polyfit(x,t,20);
 results = polyval(p,x);
 errors = zeros(1,20);
 n = norm(p)^2;

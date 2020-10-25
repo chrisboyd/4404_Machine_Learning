@@ -25,7 +25,7 @@ for w=3:15
         p = polyfit(tblTrain.input,tblTrain.output,w);
         %get predicted output for training data
         pred = polyval(p, tblTest.input);
-        errors(w) =  errors(w) + sum(0.5 .* (pred - tblTest.output).^2);
+        errors(w) =  errors(w) + sum((pred - tblTest.output).^2);
     end
     errors(w) = errors(w) / 10;
 end
