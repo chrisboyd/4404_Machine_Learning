@@ -5,9 +5,6 @@ errors = zeros(1,w);
 for i=1:w    
     %polynomial curve fitting
     p = polyfit(x,t,i);
-    if w == 6
-        psix = p;
-    end
     results = polyval(p,x);
     errors(i) = sum(0.5 .* (results - t).^2);
 end
@@ -43,4 +40,11 @@ plot([1,5,10,20,30],data,'-*');
 title('ERM, sum square loss vs polynomial degree');
 xlabel('Degree of polynomial');
 ylabel('Empirical Square Loss');
-hold off
+hold off;
+
+figure;
+plot(x,t,'+',[-1:.1:1],polyval(polyfit(x,t,5),x2));
+title('Sample output vs input data and predictor W=5');
+xlabel('input value');
+ylabel('output value');
+legend('output value','W=5');
