@@ -2,23 +2,48 @@ x = load('dataset1_inputs.txt');
 t = load('dataset1_outputs.txt');
 
 m = [x t];
-
-table = array2table(m,'VariableNames',{'input','ouput'});
+t_size = 10;
+errors = zeros(1,8);
+table = array2table(m,'VariableNames',{'input','output'});
 % Nonstratified partition
-hpartition = cvpartition(100,'Holdout',0.1); 
-%get a column vector, 1 indicates include row in training
-idxTrain = training(hpartition);
-%get rows identified for training from table
-tblTrain = table(idxTrain,:);
-%use remaining rows of table for test partition
-idxNew = test(hpartition);
-tblNew = table(idxNew,:);
+hpartition = cvpartition(100,'KFold',10);
 
-%for each set of 10 training points, train a model of
-%W=1..10 
-set1 = tblTrain(1:10,:);
-p = polyfit(set1(:,'input'),set1(:,'ou'),10);
-%results = polyval(p,x);
+%loop through each degree of polynomial for model
+for w=3:8
+    %loop through using each of 10 subsets as testing data, while
+    %remaining 9 subsets are all used as training data
+    for i=1:10
+        %get a column vector, 1 indicates include row in training
+        %idxTrain is the ith training set
+        idxTrain = training(hpartition,i);
+        %get rows identified for training from table
+        tblTrain = table(idxTrain,:);
+        %use remaining rows of table for test partition
+        idxNew = test(hpartition,i);
+        tblTest = table(idxNew,:);
+
+        %fit polynomial
+        p = polyfit(tblTrain.input,tblTrain.output,w);
+        %get predicted output for training data
+        pred = polyval(p, tblTest.input);
+        errors(i) = sum(0.5 .* (results - t).^2);
+        
+    end
+end
+
+% training = table2array(tblTrain);
+% 
+% %train each set on W=[1,8]
+% for w=1:8
+%     for i=1:t_size-1
+%         
+%     end
+%     
+% end
+
+
+% plot(set1(1:10,1),set1(1:10,2),'+',x2,polyval(polyfit(set1(1:10,1),set1(1:10,2),8),x2));
+% ylim([-2 2]);
 
 % figure;
 % stackedplot(set1,'*','XVariable','input');

@@ -1,59 +1,47 @@
 x = load('dataset1_inputs.txt');
 t = load('dataset1_outputs.txt');
 w = 30;
-errors = zeros(1,w) ;
-
-% figure;
-% hold on;
-% plot(x,t,'+');
-% ylim([-2 2]);
+errors = zeros(1,w);
 for i=1:w    
     %polynomial curve fitting
-    %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
     p = polyfit(x,t,i);
-    %x2 = [-1:.1:1];
+    if w == 6
+        psix = p
     results = polyval(p,x);
-    errors(i) = sum((t - results).^2);
-%     plot(x2,result);
+    errors(i) = sum(0.5 .* (results - t).^2);
 end
-% title('Target data and degree 1-30 polynomial curve fit');
-% hold off;
+figure;
+plot([1:1:w],errors,'-*');
+title('ERM, sum square loss vs polynomial degree');
+xlabel('Degree of polynomial');
+ylabel('Empirical Square Loss');
 
-% %degree 6 to 10 polynomials
-% figure;
-% hold on;
-% plot(x,t,'+');
-% for i=w:2*w    
-%     %polynomial curve fitting
-%     %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
-%     p = polyfit(x,t,i);
-%     x2 = [-1:.1:1];
-%     result = polyval(p,x2);
-%     plot(x2,result);
-% end
-% title('Target data and degree 6-10 polynomial curve fit');
-% legend('target','w=6','w=7','w=8','w=9','w=10');
-% hold off;
-% 
-% %degree 11 to 15 polynomials
-% figure;
-% hold on;
-% plot(x,t,'+');
-% for i=2*w:3*w    
-%     %polynomial curve fitting
-%     %for degrees W[1,30], .5 sum(1..30)(y(xn,w)-tn^2)
-%     p = polyfit(x,t,i);
-%     x2 = [-1:.1:1];
-%     result = polyval(p,x2);
-%     plot(x2,result);
-% end
-% title('Target data and degree 11-15 polynomial curve fit');
-% legend('target','w=11','w=12','w=13','w=14','w=15');
-% hold off;
+%step 5 visualization
+%plot of learned polynomials
+figure;
+x2 = [-1:.1:1];
+plot(x,t,'+');
+hold on;
+plot(x2,polyval(polyfit(x,t,1),x2));
+plot(x2,polyval(polyfit(x,t,5),x2));
+plot(x2,polyval(polyfit(x,t,10),x2));
+plot(x2,polyval(polyfit(x,t,20),x2));
+plot(x2,polyval(polyfit(x,t,30),x2));
+ylim([-2 2]);
+title('Sample output vs input data');
+xlabel('input value');
+ylabel('output value');
+legend('output','W=1','W=5','W=10','W=20','W=30');
+hold off;
 
-
-
-
+%plot of errors for W=1,5,10,20,30
+data = [errors(1),errors(5),errors(10),errors(20),errors(30)];
+figure;
+hold on;
+plot([1,5,10,20,30],data,'-*');
+title('ERM, sum square loss vs polynomial degree');
+xlabel('Degree of polynomial');
+ylabel('Empirical Square Loss');
 
 
 
