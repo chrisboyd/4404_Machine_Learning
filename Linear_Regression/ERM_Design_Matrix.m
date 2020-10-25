@@ -1,0 +1,9 @@
+x = load('dataset1_inputs.txt');
+t = load('dataset1_outputs.txt');
+w = 30;
+errors = zeros(1,w);
+poly = designmatrix(x,t,20);
+p = polyfit(x,t,20);
+poly = poly';
+res = evalpoly(poly,2);
+real = polyval(p,2);

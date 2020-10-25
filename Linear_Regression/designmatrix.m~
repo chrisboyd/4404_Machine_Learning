@@ -1,0 +1,15 @@
+function coeff = designmatrix(input,output,deg)
+dmat = zeros(100,deg);
+
+for i=1:deg
+    
+end
+
+dmat(:,1) = 1;
+dmat(:,2) = input;
+dmat(:,3) = input.^2;
+dmat(:,4) = input.^3;
+
+coeff = (dmat' * dmat) \ (dmat'*output);
+
+end
