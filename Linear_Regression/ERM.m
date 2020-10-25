@@ -1,12 +1,12 @@
 x = load('dataset1_inputs.txt');
 t = load('dataset1_outputs.txt');
 w = 30;
-errors = zeros(1,w) ;
+errors = zeros(1,w);
 for i=1:w    
     %polynomial curve fitting
     p = polyfit(x,t,i);
     results = polyval(p,x);
-    errors(i) = sum((results - t).^2);
+    errors(i) = sum(0.5 .* (results - t).^2);
 end
 figure;
 plot([1:1:w],errors,'-*');
