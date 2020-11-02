@@ -1,0 +1,11 @@
+input = load('6pointsinputs.txt');
+output = load('6pointsoutputs.txt');
+in_x = input(:,1);
+in_y = input(:,2);
+figure;
+plot(in_x, in_y,'*');
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+xlim([-3,3]);
+ylim([-3,3]);

@@ -1,0 +1,4 @@
+input = load('6pointsinputs.txt');
+output = load('6pointoutputs.txt');
+figure;
+plot(input, output,'*');
