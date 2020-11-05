@@ -1,5 +1,6 @@
 input = load('6pointsinputs.txt');
 output = load('6pointsoutputs.txt');
+
 input(:,3) = output;
 positive = input(input(:,3)==1,:);
 negative = input(input(:,3)==-1,:);

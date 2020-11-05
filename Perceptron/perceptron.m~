@@ -1,0 +1,31 @@
+input = load('6pointsinputs.txt');
+output = load('6pointsoutputs.txt');
+
+weights = test(input,output);
+
+
+function [weights, iterations] = test(input, labels)
+[rows, cols] = size(input);
+shuffle_in = zeros(rows, cols+1);
+shuffle_in(:,1:2) = input;
+shuffle_in(:,3) = labels;
+shuffle_in = shuffle_in(randperm(size(shuffle_in, 1)), :);
+labels = shuffle_in(:,3);
+
+des_matrix = 
+weights = zeros(rows, cols+1);
+
+pause;
+iterations = 1;
+error = -1;
+% 
+% while error ~= 0 || iterations > 6
+%     sign = dot(weights, shuffle_in(1,1:2));
+%     iterations = iterations + 1;
+%     if (sign * 
+%     
+% end
+
+
+pause;
+end
