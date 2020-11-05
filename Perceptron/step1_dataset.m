@@ -10,6 +10,7 @@ plot(negative(:,1),negative(:,2) ,'o');
 ax = gca;
 ax.XAxisLocation = 'origin';
 ax.YAxisLocation = 'origin';
-legend('positive output', 'negative output');
+legend('Positive Classification', 'Negative Classification');
+title('Plot of Input Vectors and Expected Classification');
 xlim([-3,3]);
 ylim([-3,3]);
