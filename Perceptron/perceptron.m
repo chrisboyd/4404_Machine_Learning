@@ -1,35 +1,4 @@
-input = load('6pointsinputs.txt');
-output = load('6pointsoutputs.txt');
-full = input;
-full(:,3) = output;
-positive = full(full(:,3)==1,:);
-negative = full(full(:,3)==-1,:);
-
-figure;
-plot(positive(:,1),positive(:,2) ,'+');
-hold on;
-plot(negative(:,1),negative(:,2) ,'o');
-ax = gca;
-ax.XAxisLocation = 'origin';
-ax.YAxisLocation = 'origin';
-legend('Positive Classification', 'Negative Classification');
-title('Plot of Input Vectors and Expected Classification');
-
-weights = zeros(6,3);
-iterations = zeros(6,1);
-
-for i=1:6
-    [weights(i,:), iterations(i)] = test(input,output);
-end
-x = [-3:.1:3];
-for j=1:6
-    p = cat(2,weights(j,1)/weights(j,2),weights(j,3));
-    plot(x,polyval(p,x));
-end
-xlim([-3,3]);
-ylim([-3,3]);
-
-function [weights, iterations] = test(input, labels)
+function [weights, iterations] = perceptron(input, labels)
 [rows, cols] = size(input);
 des_matr = zeros(rows, cols+1);
 des_matr(:,1:2) = input;
@@ -47,13 +16,15 @@ while error ~= 0 && iterations <= 6
     iterations = iterations + 1;
     sign = dot(weights, des_matr(iterations,:));
     
-    if sign == 0;
+    if sign == 0
         weights = weights + labels(iterations) * des_matr(iterations,:);
-    else (sign * labels(iterations) > 0);
+        
+    elseif (sign * labels(iterations) > 0)
         error = 0;
     end
     
 end
 
-
+weights = weights ./ norm(weights);
+%pause;
 end
