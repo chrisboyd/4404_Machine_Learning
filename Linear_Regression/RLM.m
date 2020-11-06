@@ -15,6 +15,7 @@ plot([1:1:30],errors,'-*');
 title('RLM, regularized square loss vs ln(lambda)');
 xlabel('ln(lambda) * -1');
 ylabel('Regularized Square Loss');
+%ylim([0,1]);
 
 %step 5 visualization
 w = [1,5,6,10,20,30];

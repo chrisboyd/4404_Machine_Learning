@@ -26,5 +26,5 @@ while error ~= 0 && iterations <= 6
 end
 
 weights = weights ./ norm(weights);
-%pause;
+
 end
