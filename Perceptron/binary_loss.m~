@@ -1,0 +1,17 @@
+function bloss = binary_loss(weight, inputs, labels)
+bloss = 0;
+[rows, cols] = size(inputs);
+data_mat = ones(rows, cols+1);
+data_mat(:,1:2) = inputs;
+
+%compute total binary loss for given weight vector over all 
+%inputs and respective labels
+for i=1:rows
+    sign = dot(weight, data_mat(i,:)) * labels(i);
+    bloss = bloss + (.5 * sign - .5);
+end
+pause;
+bloss = bloss / size(bloss);
+
+
+end
