@@ -9,5 +9,4 @@ for i=1:size(labels)
 end
 
 bloss = bloss / i;
-
 end

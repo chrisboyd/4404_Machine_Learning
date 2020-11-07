@@ -1,5 +1,7 @@
-inputs = load('6pointsinputs.txt');
-labels = load('6pointsoutputs.txt');
+% inputs = load('6pointsinputs.txt');
+% labels = load('6pointsoutputs.txt');
+inputs = load('fg_inputs.txt');
+labels = load('fg_outputs.txt');
 [rows, cols] = size(inputs);
 data_matrix = zeros(rows, cols+1);
 
@@ -25,6 +27,13 @@ for i=1:test_runs
     hloss(i) = hinge_loss(weights(i,:),data_matrix(hpoint,:),data_labels(hpoint,:));
     logloss(i) = logistic_loss(weights(i,:),data_matrix,data_labels);
 end
+%get minimum loss weight vector for each type of loss
+[b_min, b_i] = max(bloss)
+weights(b_i,:)
+[h_min, h_i] = min(hloss)
+weights(h_i,:)
+[l_min, l_i] = min(logloss)
+weights(l_i,:)
 
 figure;
 plot([1:1:test_runs],bloss,'r');
@@ -35,4 +44,4 @@ legend('binary loss','hinge loss (random data point)','logistic loss');
 title('Comparison of Binary, Hinge and Logistic Loss');
 ylabel('Loss');
 xlabel('Test run number');
-ylim([-0.05,1]);
+%ylim([-0.05,1]);
