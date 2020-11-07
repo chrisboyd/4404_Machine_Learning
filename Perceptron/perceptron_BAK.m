@@ -12,19 +12,17 @@ weights = zeros(1, cols+1);
 iterations = 0;
 error = -1;
 
-while error ~= 0 && iterations <= 100
-    i = 1;
-    while i<=6
-        sign = dot(weights, des_matr(i,:));
-        if sign == 0
-            weights = weights + labels_reorder(i) * des_matr(i,:);
-            iterations = iterations + 1;
-        elseif (sign * labels_reorder(i) > 0)
-            error = 0;
-        end
-        i=i+1;
+while error ~= 0 && iterations <= 6
+    iterations = iterations + 1;
+    sign = dot(weights, des_matr(iterations,:));
+    
+    if sign == 0
+        weights = weights + labels_reorder(iterations) * des_matr(iterations,:);
+        
+    elseif (sign * labels_reorder(iterations) > 0)
+        error = 0;
     end
-
+    
 end
 
 weights = weights ./ norm(weights);
