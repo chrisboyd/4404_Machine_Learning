@@ -1,27 +1,25 @@
 inputs = load('6pointsinputs.txt');
 labels = load('6pointsoutputs.txt');
-
-test_runs = 30;
-weights = zeros(test_runs,3);
-updates = zeros(test_runs,1);
-
-for i=1:test_runs
-    [weights(i,:),updates(i)] = perceptron(inputs,labels);
-    %test if each predictor correctly classifies each point
-end
-
-%test each of the weight vectors agains all inputs
-%get binary loss for each of the 20 weight vectors learned
 [rows, cols] = size(inputs);
-aug_data = ones(rows,cols+1);
-aug_data(:,1:2) = inputs;
+data_matrix = zeros(rows, cols+1);
 
+test_runs = 20;
+weights = zeros(test_runs,cols+1);
+bloss = zeros(1, test_runs);
+for i=1:test_runs
+    %randomize order of inputs and respective labels
+    data_matrix(:,1:cols) = inputs;
+    data_matrix(:,end) = labels;
+    data_matrix = data_matrix(randperm(size(data_matrix, 1)), :);
+    labels = data_matrix(:,end);
+    data_matrix(:,end) = 1;
+    
+    %train the perceptron
+    weights(i,:) = perceptron(data_matrix,labels);
+    %bloss(i) = binary_loss(weights(i,:),data_matrix,labels);
+end
 % 
 % bloss = zeros(size(test_runs,1));
-% for k=1:test_runs
-%     bloss(k) = binary_loss(weights(1,:), inputs, labels); 
-% end
-% 
 % 
 % figure;
 % plot([1:1:test_runs],bloss);
