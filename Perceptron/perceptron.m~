@@ -1,4 +1,5 @@
-function [weight, updates] = perceptron(inputs, labels)
+function weight = perceptron(inputs, labels)
+    
     [rows, cols] = size(inputs);
     %randomize order of inputs and respective labels
     data_matrix = zeros(rows, cols+1);
@@ -7,24 +8,23 @@ function [weight, updates] = perceptron(inputs, labels)
     data_matrix = data_matrix(randperm(size(data_matrix, 1)), :);
     labels = data_matrix(:,3);
     data_matrix(:,3) = 1;
-    
+    pause;
     updates = 0;
-    error = -1;
+    errors = -1;
     weight = zeros(1,cols+1);
     j = 1;
-    while j<=100 && error == -1
+    while j<=100 && errors == -1
         %assume no more training required
-        error = 0;
+        errors = 0;
         for i=1:6
-            sign = labels(i) * dot(weight, data_matrix(i,:));
+            sign = labels(i) * dot(weight, inputs(i,:));
             if sign <= 0
-                weight = weight + labels(i) * data_matrix(i,:);
+                weight = weight + labels(i) * inputs(i,:);
                 updates = updates + 1;
                 %more training is required
-                error = -1;
+                errors = -1;
             end
         end
         j = j+1;  
     end
-    weight = weight ./ norm(weight);
 end
