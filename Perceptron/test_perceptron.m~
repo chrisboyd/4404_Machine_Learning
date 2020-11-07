@@ -4,27 +4,29 @@ labels = load('6pointsoutputs.txt');
 data_matrix = zeros(rows, cols+1);
 
 test_runs = 20;
-weights = zeros(test_runs,cols+1);
+weights = zeros(test_runs, cols+1);
 bloss = zeros(1, test_runs);
+hloss = zeros(1, test_runs);
+logloss = zeros(1, test_runs);
 for i=1:test_runs
     %randomize order of inputs and respective labels
     data_matrix(:,1:cols) = inputs;
     data_matrix(:,end) = labels;
     data_matrix = data_matrix(randperm(size(data_matrix, 1)), :);
-    labels = data_matrix(:,end);
+    data_labels = data_matrix(:,end);
     data_matrix(:,end) = 1;
     
     %train the perceptron
-    weights(i,:) = perceptron(data_matrix,labels);
-    %bloss(i) = binary_loss(weights(i,:),data_matrix,labels);
+    weights(i,:) = perceptron(data_matrix,data_labels);
+    bloss(i) = binary_loss(weights(i,:),data_matrix,data_labels);
+    logloss(i) = logistic_loss(weights(i,:),data_matrix,data_labels);
 end
-% 
-% bloss = zeros(size(test_runs,1));
-% 
-% figure;
-% plot([1:1:test_runs],bloss);
-% hold on;
-% legend('binary loss');
-% title('Comparison of Binary, Hinge and Logistic Loss');
-% ylabel('Loss');
-% xlabel('Test run number');
+
+figure;
+plot([1:1:test_runs],bloss);
+hold on;
+plot([1:1:test_runs],logloss);
+legend('binary loss','logistic loss');
+title('Comparison of Binary, Hinge and Logistic Loss');
+ylabel('Loss');
+xlabel('Test run number');

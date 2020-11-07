@@ -1,0 +1,2 @@
+function logloss = logistic_loss(weight, data, labels)
+
