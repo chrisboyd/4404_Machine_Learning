@@ -7,7 +7,7 @@ j = 1;
 while j<=100 && error == -1
     %assume no more training required
     error = 0;
-    for i=1:6
+    for i=1:rows
         sign = labels(i) * dot(weight, inputs(i,:));
         if sign <= 0
             weight = weight + labels(i) * inputs(i,:);

@@ -1,0 +1,32 @@
+inputs = load('irisnum.txt');
+% label1 = inputs(inputs(:,5)==1,1:4);
+% label2 = inputs(inputs(:,5)==2,1:4);
+% label3 = inputs(inputs(:,5)==3,1:4);
+
+[rows, cols] = size(inputs);
+test_runs = 20;
+weights = zeros(test_runs, cols);
+bloss = zeros(1, test_runs);
+hloss = zeros(1, test_runs);
+logloss = zeros(1, test_runs);
+
+%label1 versus label2 and label3
+% train = labels;
+% train(1:50) = 1;
+% train(51:150) = -1;
+for i=1:test_runs
+    %randomize order
+    data_matrix = inputs;
+    data_matrix = data_matrix(randperm(size(data_matrix, 1)), :);
+    data_labels = data_matrix(:,end);
+    data_labels(:,
+    data_matrix(:,end) = 1;
+end
+
+%label2 versus label1 and label3
+train = labels;
+train(51:100) = 1;
+
+%label3 versus label1 and label2
+train = labels;
+train(101:150) = 1;
