@@ -1,7 +1,4 @@
 inputs = load('irisnum.txt');
-% label1 = inputs(inputs(:,5)==1,1:4);
-% label2 = inputs(inputs(:,5)==2,1:4);
-% label3 = inputs(inputs(:,5)==3,1:4);
 
 [rows, cols] = size(inputs);
 test_runs = 20;
@@ -14,6 +11,7 @@ logloss = zeros(1, test_runs);
 for i=1:test_runs
     %randomize order
     data_matrix = inputs;
+    
     data_matrix = data_matrix(randperm(size(data_matrix, 1)), :);
     data_labels = data_matrix(:,end);
     data_labels(data_labels(:,end)==1) = -1;
@@ -47,8 +45,3 @@ legend('binary loss','hinge loss (random data point)','logistic loss');
 title('Comparison of Binary, Hinge and Logistic Loss Label Set 1 vs 2&3');
 ylabel('Loss');
 xlabel('Test run number');
-%ylim([-0.05,1]);
-%label2 versus label1 and label3
-
-
-%label3 versus label1 and label2
