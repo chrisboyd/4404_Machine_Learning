@@ -1,0 +1,4 @@
+bank_data = load("data_banknote_authentication.txt");
+bank_labels = bank_data(:,5);
+%positive = input(input(:,4)==1,:);
+%data_labels(data_labels(:,end)==1) = -1;
