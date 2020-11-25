@@ -27,11 +27,11 @@ end
 figure;
 x = 1:1:500;
 plot(x,b_loss);
-title('Binary Loss of SGD for SoftSVM');
+title('Binary Loss of SGD for SoftSVM for lambda = .001');
 xlabel('iteration');
 ylabel('loss');
 figure;
 plot(x,h_loss);
-title('Hinge Loss of SGD for SoftSVM');
+title('Hinge Loss of SGD for SoftSVM for lambda = .001');
 xlabel('iteration');
 ylabel('loss');
