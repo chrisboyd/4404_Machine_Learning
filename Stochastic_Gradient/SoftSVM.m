@@ -14,8 +14,8 @@ h_loss = zeros(1,T);
 for j = 1:T
     w = (1/lambda * j) * theta;
     i = ceil(rand * numel(labels));
-    error = labels(i) * dot(w, data(i,:));
-    if error < 1
+    update = labels(i) * dot(w, data(i,:));
+    if update < 1
         theta = theta + labels(i) * data(i,:);
     else
         theta = theta;
