@@ -1,9 +1,0 @@
-function w = SGD(f, v, n, T)
-w = zeros(T+1);
-x = ceil(rand * size(v,2));
-
-for i=1:T
-    w(i+1) = w(i) - n * f(x);
-end
-w = 1/T * sum (
-end

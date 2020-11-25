@@ -29,16 +29,12 @@ labels_w3(labels_w3(:,end)==2) = -1;
 labels_w3(labels_w3(:,end)==3) = 1;
 w3 = perceptron(data_w3,labels_w3);
 loss_w3 = binary_loss(w3,data_w3,labels_w3);
-b_loss = 0;
+b_
 %perform multi-class using argmax of three weight vectors
 for i = 1:numel(labels_w1)
     test = input(i,:);
     test(end) = 1;
     y = [dot(w1,test) dot(w2,test) dot(w3,test)];
-    [m,class] = max(y);
-    if class ~= input(i,end)
-        b_loss = b_loss + 1;
-    end
+    [
+   
 end
-
-b_loss = b_loss / i;
